@@ -17,10 +17,12 @@ public class Issue {
     @Column(name = "return_date")
     private String returnDate;
 
-    @Column(name = "issue_book")
+    @OneToOne
+    @JoinColumn(name = "issue_book", referencedColumnName = "isbm")
     private Book issueBook;
 
-    @Column(name = "issue_student")
+    @OneToOne
+    @JoinColumn(name = "issue_student", referencedColumnName = "usn")
     private Student issueStudent;
 
     public Issue() {
