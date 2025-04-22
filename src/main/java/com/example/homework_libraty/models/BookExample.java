@@ -1,13 +1,12 @@
 package com.example.homework_libraty.models;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "books")
-public class Book {
+public class BookExample {
 
     @Id
     private String isbn;
@@ -18,10 +17,10 @@ public class Book {
 
     private int quantity;
 
-    public Book() {
+    public BookExample() {
     }
 
-    public Book(String isbn, String tittle, String category, int quantity) {
+    public BookExample(String isbn, String tittle, String category, int quantity) {
         this.isbn = isbn;
         this.tittle = tittle;
         this.category = category;

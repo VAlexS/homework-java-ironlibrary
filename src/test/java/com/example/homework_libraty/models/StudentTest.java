@@ -17,7 +17,7 @@ class StudentTest {
     @Test
     @DisplayName("Guardo un estudiante en la base de datos")
     void saveStudent(){
-        Student student = new Student("32e2r4frf", "Victor Sanz");
+        Student student = new Student("843t", "Daniel");
 
         studentRepository.save(student);
     }
