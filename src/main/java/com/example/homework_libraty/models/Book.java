@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "books")
-public class BookExample {
+public class Book {
 
     @Id
     private String isbn;
@@ -17,10 +17,10 @@ public class BookExample {
 
     private int quantity;
 
-    public BookExample() {
+    public Book() {
     }
 
-    public BookExample(String isbn, String tittle, String category, int quantity) {
+    public Book(String isbn, String tittle, String category, int quantity) {
         this.isbn = isbn;
         this.tittle = tittle;
         this.category = category;

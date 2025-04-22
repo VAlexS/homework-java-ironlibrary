@@ -2,8 +2,6 @@ package com.example.homework_libraty.models;
 
 import jakarta.persistence.*;
 
-//import java.awt.print.Book;
-
 @Entity
 @Table(name = "author")
 public class Author {
@@ -19,12 +17,12 @@ public class Author {
 
     @OneToOne
     @JoinColumn(name = "author_book", referencedColumnName = "isbn")
-    private BookExample authorBook;
+    private Book authorBook;
 
     public Author() {
     }
 
-    public Author(String name, String email, BookExample authorBook) {
+    public Author(String name, String email, Book authorBook) {
         this.name = name;
         this.email = email;
         this.authorBook = authorBook;
@@ -54,11 +52,11 @@ public class Author {
         this.email = email;
     }
 
-    public BookExample getAuthorBook() {
+    public Book getAuthorBook() {
         return authorBook;
     }
 
-    public void setAuthorBook(BookExample authorBook) {
+    public void setAuthorBook(Book authorBook) {
         this.authorBook = authorBook;
     }
 

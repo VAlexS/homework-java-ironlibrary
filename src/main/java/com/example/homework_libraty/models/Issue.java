@@ -19,7 +19,7 @@ public class Issue {
 
     @OneToOne
     @JoinColumn(name = "issue_book", referencedColumnName = "isbn")
-    private BookExample issueBook;
+    private Book issueBook;
 
     @OneToOne
     @JoinColumn(name = "issue_student", referencedColumnName = "usn")
@@ -28,7 +28,7 @@ public class Issue {
     public Issue() {
     }
 
-    public Issue(String issueDate, String returnDate, BookExample issueBook, Student issueStudent) {
+    public Issue(String issueDate, String returnDate, Book issueBook, Student issueStudent) {
         this.issueDate = issueDate;
         this.returnDate = returnDate;
         this.issueBook = issueBook;
@@ -59,11 +59,11 @@ public class Issue {
         this.returnDate = returnDate;
     }
 
-    public BookExample getIssueBook() {
+    public Book getIssueBook() {
         return issueBook;
     }
 
-    public void setIssueBook(BookExample issueBook) {
+    public void setIssueBook(Book issueBook) {
         this.issueBook = issueBook;
     }
 

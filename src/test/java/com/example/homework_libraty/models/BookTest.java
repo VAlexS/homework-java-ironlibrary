@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class BookTest {
 
-    /*@Autowired
+    @Autowired
     BookRepository bookRepository;
 
     @Test
@@ -20,6 +20,6 @@ class BookTest {
         Book book = new Book("32fs4r", "El señor de los anillos", "accion", 42);
         bookRepository.save(book);
 
-    }*/
+    }
 
 }
