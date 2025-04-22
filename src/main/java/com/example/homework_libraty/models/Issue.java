@@ -18,7 +18,7 @@ public class Issue {
     private String returnDate;
 
     @OneToOne
-    @JoinColumn(name = "issue_book", referencedColumnName = "isbm")
+    @JoinColumn(name = "issue_book", referencedColumnName = "isbn")
     private Book issueBook;
 
     @OneToOne
