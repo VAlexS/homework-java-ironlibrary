@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -96,6 +98,7 @@ public class HomeworkLibratyApplication {
         }
     }
 
+    //daniM entregar libro
     public void issueBook() {
         System.out.print("Enter the title of the book: ");
         String title = scanner.nextLine().trim();
@@ -115,10 +118,23 @@ public class HomeworkLibratyApplication {
             throw new IllegalArgumentException("Book title cannot be empty.");
         }
         Student student = studentRepository.findByName(studentName);
-        Issue issue = new Issue("23-05-2025", "15-05-2025", student, book);
+
+        Issue issue = new Issue(getDate(), getExpiredDate(), student, book);
         //String issueDate, String returnDate, Student issueStudent, Book issueBook
         issuesRepository.save(issue);
 
+    }
+    public String getDate(){
+        LocalDate actualDate = LocalDate.now();
+        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("yyyy-mm-aa");
+        String dateString = actualDate.format(formatter);
+        return dateString;
+    }
+    public String getExpiredDate(){
+        LocalDate actualDate = LocalDate.now();
+        LocalDate datePlusWeek=actualDate.plusWeeks(1);
+        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        return datePlusWeek.format(formatter);
     }
 
 
