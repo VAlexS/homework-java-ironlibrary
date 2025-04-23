@@ -7,12 +7,13 @@ import jakarta.persistence.*;
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "author_id")
-    private int id;
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    private int authorId;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "email")
     private String email;
 
     @OneToOne
@@ -23,17 +24,17 @@ public class Author {
     }
 
     public Author(String name, String email, Book authorBook) {
-        this.name = name;
-        this.email = email;
-        this.authorBook = authorBook;
+        setName(name);
+        setEmail(email);
+        setAuthorBook(authorBook);
     }
 
-    public int getId() {
-        return id;
+    public int getAuthorId() {
+        return authorId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
     public String getName() {
@@ -62,11 +63,11 @@ public class Author {
 
     @Override
     public String toString() {
-        return "Author{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", authorBook=" + authorBook +
-                '}';
+        return "Author {\n" +
+                "    authorId=" + authorId + ",\n" +
+                "    name='" + name + "',\n" +
+                "    email='" + email + "',\n" +
+                "    authorBook=" + authorBook + "\n" +
+                "}";
     }
 }

@@ -2,13 +2,14 @@ package com.example.homework_libraty.models;
 
 import jakarta.persistence.*;
 
+import jakarta.persistence.*;
+
 @Entity
-@Table(name = "issues")
+@Table(name = "issue")
 public class Issue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "issue_id")
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private int issueId;
 
     @Column(name = "issue_date")
@@ -18,21 +19,21 @@ public class Issue {
     private String returnDate;
 
     @OneToOne
-    @JoinColumn(name = "issue_book", referencedColumnName = "isbn")
-    private Book issueBook;
-
-    @OneToOne
     @JoinColumn(name = "issue_student", referencedColumnName = "usn")
     private Student issueStudent;
+
+    @OneToOne
+    @JoinColumn(name = "issue_book", referencedColumnName = "isbn")
+    private Book issueBook;
 
     public Issue() {
     }
 
-    public Issue(String issueDate, String returnDate, Book issueBook, Student issueStudent) {
-        this.issueDate = issueDate;
-        this.returnDate = returnDate;
-        this.issueBook = issueBook;
-        this.issueStudent = issueStudent;
+    public Issue(String issueDate, String returnDate, Student issueStudent, Book issueBook) {
+        setIssueDate(issueDate);
+        setReturnDate(returnDate);
+        setIssueStudent(issueStudent);
+        setIssueBook(issueBook);
     }
 
     public int getIssueId() {
@@ -59,14 +60,6 @@ public class Issue {
         this.returnDate = returnDate;
     }
 
-    public Book getIssueBook() {
-        return issueBook;
-    }
-
-    public void setIssueBook(Book issueBook) {
-        this.issueBook = issueBook;
-    }
-
     public Student getIssueStudent() {
         return issueStudent;
     }
@@ -75,14 +68,22 @@ public class Issue {
         this.issueStudent = issueStudent;
     }
 
+    public Book getIssueBook() {
+        return issueBook;
+    }
+
+    public void setIssueBook(Book issueBook) {
+        this.issueBook = issueBook;
+    }
+
     @Override
     public String toString() {
-        return "Issue{" +
-                "issueId=" + issueId +
-                ", issueDate='" + issueDate + '\'' +
-                ", returnDate='" + returnDate + '\'' +
-                ", issueBook=" + issueBook +
-                ", issueStudent=" + issueStudent +
-                '}';
+        return "Issue {\n" +
+                "    issueId=" + issueId + ",\n" +
+                "    issueDate='" + issueDate + "',\n" +
+                "    returnDate='" + returnDate + "',\n" +
+                "    issueStudent=" + issueStudent + ",\n" +
+                "    issueBook=" + issueBook + "\n" +
+                "}";
     }
 }

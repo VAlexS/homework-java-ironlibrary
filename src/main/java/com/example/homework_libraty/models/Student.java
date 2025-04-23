@@ -1,26 +1,30 @@
 package com.example.homework_libraty.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "students")
+@Table(name = "student")
 public class Student {
 
     @Id
     private String usn;
 
+    @Column(name = "name")
     private String name;
 
     public Student() {
     }
 
-    public Student(String usn, String name) {
-        this.usn = usn;
-        this.name = name;
-    }
-
     public String getUsn() {
         return usn;
+    }
+
+    public Student(String usn, String name) {
+        setUsn(usn);
+        setName(name);
     }
 
     public void setUsn(String usn) {
@@ -37,11 +41,9 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "usn='" + usn + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        return "Student {\n" +
+                "    usn='" + usn + "',\n" +
+                "    name='" + name + "'\n" +
+                "}";
     }
-
-
 }

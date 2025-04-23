@@ -1,30 +1,35 @@
 package com.example.homework_libraty.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "books")
+@Table(name = "book")
 public class Book {
 
     @Id
     private String isbn;
 
-    private String tittle;
+    @Column(name = "title")
+    private String title;
 
+    @Column(name = "category")
     private String category;
 
+    @Column(name = "quantity")
     private int quantity;
 
     public Book() {
+
     }
 
-    public Book(String isbn, String tittle, String category, int quantity) {
-        this.isbn = isbn;
-        this.tittle = tittle;
-        this.category = category;
-        this.quantity = quantity;
+    public Book(String isbn, String title, String category, int quantity) {
+        setIsbn(isbn);
+        setTitle(title);
+        setCategory(category);
+        setQuantity(quantity);
     }
 
     public String getIsbn() {
@@ -35,12 +40,12 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getCategory() {
@@ -61,11 +66,11 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "isbn='" + isbn + '\'' +
-                ", tittle='" + tittle + '\'' +
-                ", category='" + category + '\'' +
-                ", quantity=" + quantity +
-                '}';
+        return "Book {\n" +
+                "    isbn='" + isbn + "',\n" +
+                "    title='" + title + "',\n" +
+                "    category='" + category + "',\n" +
+                "    quantity=" + quantity + "\n" +
+                "}";
     }
 }
