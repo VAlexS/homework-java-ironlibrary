@@ -1,4 +1,4 @@
-package com.example.homework_libraty.models;
+package com.example.homework_library.models;
 
 import jakarta.persistence.*;
 

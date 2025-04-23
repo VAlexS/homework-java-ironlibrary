@@ -1,12 +1,10 @@
-package com.example.homework_libraty.models;
+package com.example.homework_library.models;
 
-import com.example.homework_libraty.repositories.StudentRepository;
+import com.example.homework_library.repositories.StudentRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class StudentTest {

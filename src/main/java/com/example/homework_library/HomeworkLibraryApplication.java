@@ -1,7 +1,7 @@
-package com.example.homework_libraty;
+package com.example.homework_library;
 
-import com.example.homework_libraty.models.*;
-import com.example.homework_libraty.repositories.*;
+import com.example.homework_library.models.*;
+import com.example.homework_library.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 @SpringBootApplication
-public class HomeworkLibratyApplication {
+public class HomeworkLibraryApplication {
 
     @Autowired
     private BookRepository bookRepository;
@@ -257,10 +257,10 @@ public class HomeworkLibratyApplication {
     public static void main(String[] args) {
 
         // Run the Spring Boot application
-        ConfigurableApplicationContext context = SpringApplication.run(HomeworkLibratyApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(HomeworkLibraryApplication.class, args);
 
         // Get the IronlibraryApplication bean from the context
-        HomeworkLibratyApplication app = context.getBean(HomeworkLibratyApplication.class);
+        HomeworkLibraryApplication app = context.getBean(HomeworkLibraryApplication.class);
 
         app.runMenu();
 
