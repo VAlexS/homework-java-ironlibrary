@@ -153,12 +153,12 @@ public class HomeworkLibratyApplication {
         List<Book> allBooks = bookRepository.findAllBooksAndAuthors(); // Devuelve una lista de objetos Book
 
         System.out.println("===========================================================");
-        System.out.printf("%-20s %-20s %-15s %-15s%n",
+        System.out.printf("%-25s %-30s %-20s %-10s%n",
                 "Book ISBN", "Book Title", "Category", "Quantity");
         System.out.println("===========================================================");
 
         for (Book book : allBooks) {
-            System.out.printf("%-20s %-20s %-15s %-15d%n",
+            System.out.printf("%-25s %-30s %-20s %-10d%n",
                     book.getIsbn(), book.getTitle(), book.getCategory(), book.getQuantity());
         }
 
