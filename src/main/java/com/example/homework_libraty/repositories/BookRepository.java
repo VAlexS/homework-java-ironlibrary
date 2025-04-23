@@ -17,4 +17,8 @@ public interface BookRepository extends JpaRepository<Book, String> {
     @Query("SELECT b FROM Book b")
     List<Book> findAllBooksAndAuthors();
 
+    Book findByIsbn(String isbn);
+
+
+
 }

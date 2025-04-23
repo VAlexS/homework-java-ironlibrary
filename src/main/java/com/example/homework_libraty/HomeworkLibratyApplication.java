@@ -100,28 +100,36 @@ public class HomeworkLibratyApplication {
 
     //daniM entregar libro
     public void issueBook() {
-        System.out.print("Enter the title of the book: ");
-        String title = scanner.nextLine().trim();
-        if (title.isEmpty()) {
-            throw new IllegalArgumentException("Book title cannot be empty.");
+        System.out.print("Enter usn: ");
+        String usn = scanner.nextLine().trim();
+        if (usn.isEmpty()) {
+            throw new IllegalArgumentException("usn cannot be empty.");
         }
+        //Student student = studentRepository.findByName(usn);
 
-        Book book = bookRepository.findByTitle(title);
-        if (book != null) {
-            System.out.println("Book found: " + book);
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine().trim();
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("name cannot be empty.");
+        }
+        Student student = studentRepository.findByName(name);
+
+
+
+        System.out.print("Enter ISBN: ");
+        String isbn = scanner.nextLine().trim();
+        if (isbn.isEmpty()) {
+            System.out.println("Book found: " + isbn);
         } else {
             System.out.println("Book not found.");
         }
-        System.out.print("Enter student name: ");
-        String studentName = scanner.nextLine().trim();
-        if (studentName.isEmpty()) {
-            throw new IllegalArgumentException("Book title cannot be empty.");
-        }
-        Student student = studentRepository.findByName(studentName);
+        Book book = bookRepository.findByIsbn(isbn);
 
         Issue issue = new Issue(getDate(), getExpiredDate(), student, book);
         //String issueDate, String returnDate, Student issueStudent, Book issueBook
+
         issuesRepository.save(issue);
+        System.out.println("Book issued. Return date" + getExpiredDate());
 
     }
     public String getDate(){
@@ -133,8 +141,9 @@ public class HomeworkLibratyApplication {
     public String getExpiredDate(){
         LocalDate actualDate = LocalDate.now();
         LocalDate datePlusWeek=actualDate.plusWeeks(1);
-        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("yyyy-mm-dd");
-        return datePlusWeek.format(formatter);
+        //DateTimeFormatter formatter =DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        //return datePlusWeek.format(formatter);
+        return datePlusWeek.toString();
     }
 
 
