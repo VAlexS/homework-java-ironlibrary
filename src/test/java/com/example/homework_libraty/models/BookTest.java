@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -20,6 +22,17 @@ class BookTest {
         Book book = new Book("32fs4r", "El señor de los anillos", "accion", 42);
         bookRepository.save(book);
 
+    }
+
+    @Test
+    @DisplayName("Buscar todos los libros")
+    void listAllBooks(){
+        List<Book> allBooks = bookRepository.findAllBooksAndAuthors();
+
+        System.out.println("============================");
+        System.out.println("Los libros que hemos encontrado son: ");
+        System.out.println(allBooks);
+        System.out.println("===================");
     }
 
 }
