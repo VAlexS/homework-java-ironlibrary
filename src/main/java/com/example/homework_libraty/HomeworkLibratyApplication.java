@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -122,7 +123,7 @@ public class HomeworkLibratyApplication {
 						searchBook();
 						break;
 					case "3":
-						// TODO
+						searchBookByCategory();
 						break;
 					case "4":
 						// TODO
@@ -154,7 +155,28 @@ public class HomeworkLibratyApplication {
 		scanner.close();
 	}
 
-	//TODO: implementaciones 3 y 4 de git hub
+	public void searchBookByCategory() {
+		List<Book> books;
+		System.out.print("Enter the category of the book: ");
+		String category = scanner.nextLine().trim();
+		if (category.isEmpty()) {
+			throw new IllegalArgumentException("Book category cannot be empty.");
+		}
+
+		books = bookRepository.findByCategory(category);
+		if (!books.isEmpty()) {
+			System.out.println("Books found in category " + category + ":");
+			for (Book book : books) {
+				System.out.println(book);
+			}
+		} else {
+			System.out.println("Book category not found.");
+		}
+	}
+
+
+
+	//TODO: hacer el 5 (List all books along with author) y la 7 (List all books along with author)
 
 	public static void main(String[] args) {
 
