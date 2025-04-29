@@ -1,5 +1,6 @@
 package com.example.homework_library.repositories;
 
+import com.example.homework_library.models.Author;
 import com.example.homework_library.models.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +19,10 @@ public interface BookRepository extends JpaRepository<Book, String> {
     List<Book> findAllBooksAndAuthors();
 
     Book findByIsbn(String isbn);
+
+
+
+
 
 
 

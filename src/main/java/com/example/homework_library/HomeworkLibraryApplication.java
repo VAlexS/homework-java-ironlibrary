@@ -28,7 +28,6 @@ public class HomeworkLibraryApplication {
     @Autowired
     private IssuesRepository issuesRepository;
 
-    // ANSI CODES for colors
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
     public static final String CYAN = "\u001B[36m";
@@ -98,51 +97,54 @@ public class HomeworkLibraryApplication {
         }
     }
 
-    //daniM entregar libro
     public void issueBook() {
         System.out.print("Enter usn: ");
         String usn = scanner.nextLine().trim();
-        if (usn.isEmpty()) {
+        if (usn.isEmpty() || findIssueWithUSN(usn) != null) {
             throw new IllegalArgumentException("usn cannot be empty.");
         }
-        //Student student = studentRepository.findByName(usn);
 
-        System.out.print("Enter name: ");
-        String name = scanner.nextLine().trim();
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("name cannot be empty.");
-        }
-        Student student = studentRepository.findByName(name);
-
+        Student student = studentRepository.findStudentByUsn(usn);
 
 
         System.out.print("Enter ISBN: ");
         String isbn = scanner.nextLine().trim();
-        if (isbn.isEmpty()) {
-            System.out.println("Book found: " + isbn);
-        } else {
-            System.out.println("Book not found.");
+        if (isbn.isEmpty() || findIssueWithISBN(isbn) != null) {
+            throw new IllegalArgumentException("isbn cannot be empty.");
         }
+
         Book book = bookRepository.findByIsbn(isbn);
 
-        Issue issue = new Issue(getDate(), getExpiredDate(), student, book);
-        //String issueDate, String returnDate, Student issueStudent, Book issueBook
+        issuesRepository.save(new Issue(getDate(), getExpiredDate(), student, book));
+        System.out.println("Book issued. Return date: " + getExpiredDate());
+    }
 
-        issuesRepository.save(issue);
-        System.out.println("Book issued. Return date" + getExpiredDate());
+    public Student findIssueWithUSN(String usn) {
+        if (usn.isEmpty()) {
+            throw new IllegalArgumentException("usn cannot be empty.");
+        }
+        return issuesRepository.findIssuesByIssueStudent_Usn(usn).getIssueStudent();
 
     }
-    public String getDate(){
-        LocalDate actualDate = LocalDate.now();
-        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("yyyy-mm-aa");
-        String dateString = actualDate.format(formatter);
-        return dateString;
+
+
+    public Book findIssueWithISBN(String isbn) {
+        if (isbn.isEmpty()) {
+            throw new IllegalArgumentException("isbn cannot be empty.");
+        }
+        return issuesRepository.findIssuesByIssueBook_Isbn(isbn).getIssueBook();
+
     }
-    public String getExpiredDate(){
+
+    public String getDate() {
         LocalDate actualDate = LocalDate.now();
-        LocalDate datePlusWeek=actualDate.plusWeeks(1);
-        //DateTimeFormatter formatter =DateTimeFormatter.ofPattern("yyyy-mm-dd");
-        //return datePlusWeek.format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return actualDate.format(formatter);
+    }
+
+    public String getExpiredDate() {
+        LocalDate actualDate = LocalDate.now();
+        LocalDate datePlusWeek = actualDate.plusWeeks(1);
         return datePlusWeek.toString();
     }
 
@@ -167,7 +169,32 @@ public class HomeworkLibraryApplication {
 
     }
 
+    public void listAllBooksByUSN() {
+        System.out.print("Enter usn: ");
+        String usn = scanner.nextLine().trim();
+        Issue issue = issuesRepository.findIssuesByIssueStudent_Usn(usn);
+        if (issue != null) {
+            System.out.println("Book found: " + issue.getIssueBook());
+        } else {
+            System.out.println("Book not found.");
+        }
+    }
 
+    public void findBookByAuthor() {
+        System.out.print("Enter the author of the book: ");
+        String authorName = scanner.nextLine().trim();
+        if (authorName.isEmpty()) {
+            throw new IllegalArgumentException("Author cannot be empty.");
+        }
+
+        Book book = authorRepository.findByName(authorName).getAuthorBook();
+        if (book != null) {
+            System.out.println("Book found: " + book);
+        } else {
+            System.out.println("Book not found.");
+        }
+
+    }
 
     public void menuDisplay() {
         System.out.println(GREEN + "\n======== 📖 Iron Library ========" + RESET);
@@ -203,7 +230,7 @@ public class HomeworkLibraryApplication {
                         searchBookByCategory();
                         break;
                     case "4":
-                        // TODO
+                        findBookByAuthor();
                         break;
                     case "5":
                         listAllBooks();
@@ -212,7 +239,7 @@ public class HomeworkLibraryApplication {
                         issueBook();
                         break;
                     case "7":
-                        // TODO
+                        listAllBooksByUSN();
                         break;
                     case "8", "exit":
                         running = false;
@@ -251,8 +278,6 @@ public class HomeworkLibraryApplication {
         }
     }
 
-
-    //TODO: hacer el 5 (List all books along with author) y la 7 (List all books along with author)
 
     public static void main(String[] args) {
 
