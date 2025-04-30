@@ -1,13 +1,17 @@
 package com.example.homework_library;
 
+import com.example.homework_library.models.Author;
 import com.example.homework_library.models.Book;
 import com.example.homework_library.models.Issue;
+import com.example.homework_library.models.Student;
+import com.example.homework_library.services.AuthorService;
 import com.example.homework_library.services.BookService;
 import com.example.homework_library.services.IssueService;
 import com.example.homework_library.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -25,16 +29,15 @@ public class HomeworkLibraryApplication {
     @Autowired
     private IssueService issueService;
 
+    @Autowired
+    private AuthorService authorService;
+
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
     public static final String CYAN = "\u001B[36m";
     public static final String RED = "\u001B[31m";
 
     private final Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
-        SpringApplication.run(HomeworkLibraryApplication.class, args).getBean(HomeworkLibraryApplication.class).runMenu();
-    }
 
     public void runMenu() {
         boolean running = true;
@@ -52,7 +55,9 @@ public class HomeworkLibraryApplication {
                     case "5" -> listAllBooks();
                     case "6" -> issueBook();
                     case "7" -> listAllBooksByUSN();
-                    case "8", "exit" -> running = false;
+                    case "8" -> listAllStudents();
+                    case "9" -> listAllAuthors();
+                    case "0", "exit" -> running = false;
                     default -> System.out.println("Invalid option. Please try again.");
                 }
             } catch (IllegalArgumentException e) {
@@ -76,7 +81,11 @@ public class HomeworkLibraryApplication {
         System.out.println(CYAN + "5. 📚 List all books along with author" + RESET);
         System.out.println(CYAN + "6. 🎓 Issue book to student" + RESET);
         System.out.println(CYAN + "7. 🆔 List books by USN" + RESET);
-        System.out.println(RED + "8. 🚪 Exit" + RESET);
+        System.out.println(CYAN + "8. 👩‍🎓 List all students" + RESET);
+        System.out.println(CYAN + "9. ✍️ List all authors" + RESET);
+        System.out.println(GREEN + "-----------------------------------------" + RESET);
+        System.out.println(RED + "0. 🚪 Exit" + RESET);
+        System.out.println(GREEN + "=========================================" + RESET);
         System.out.print("Choose an option: ");
     }
 
@@ -141,6 +150,38 @@ public class HomeworkLibraryApplication {
         System.out.println(separator);
     }
 
+    private void listAllStudents() {
+        List<Student> students = studentService.listAllStudents();
+
+        String separator = String.format("%-50s", "").replace(' ', '=');
+
+        System.out.println(separator);
+        System.out.printf("%-20s %-30s%n", "USN", "Student Name");
+        System.out.println(separator);
+
+        for (Student student : students) {
+            System.out.printf("%-20s %-30s%n", student.getUsn(), student.getName());
+        }
+
+        System.out.println(separator);
+    }
+
+    private void listAllAuthors() {
+        List<Author> authors = authorService.findAll();
+
+        String separator = String.format("%-60s", "").replace(' ', '=');
+
+        System.out.println(separator);
+        System.out.printf("%-30s %-30s%n", "Author Name", "Email");
+        System.out.println(separator);
+
+        for (Author author : authors) {
+            System.out.printf("%-30s %-30s%n", author.getName(), author.getEmail());
+        }
+
+        System.out.println(separator);
+    }
+
 
     private void issueBook() {
         String usn = prompt("Enter USN: ");
@@ -168,4 +209,15 @@ public class HomeworkLibraryApplication {
         System.out.print(message);
         return scanner.nextLine().trim();
     }
+    public static void main(String[] args) {
+        ConfigurableApplicationContext context = SpringApplication.run(HomeworkLibraryApplication.class, args);
+
+        HomeworkLibraryApplication app = context.getBean(HomeworkLibraryApplication.class);
+
+        app.runMenu();
+
+        SpringApplication.exit(context);
+
+    }
+
 }
