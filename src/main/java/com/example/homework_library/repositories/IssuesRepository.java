@@ -13,5 +13,7 @@ public interface IssuesRepository extends JpaRepository<Issue, Integer> {
     //List<Issue> findIssuesByIssueStudent_Usn(String issueStudentUsn);
     Issue findIssuesByIssueStudent_Usn(String issueStudentUsn);
     Issue findIssuesByIssueBook_Isbn(String issueBookIsbn);
+    boolean existsByIssueStudent_Usn(String usn);
+    boolean existsByIssueBook_Isbn(String isbn);
 
 }
